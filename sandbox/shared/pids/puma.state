@@ -1,0 +1,5 @@
+---
+pid: 3082
+control_url: unix:///tmp/puma-status-1637350322657-3082
+control_auth_token: b01ddb47106f4851d90f1c78d5c79ea7
+running_from: "/home/ubuntu/spree/sandbox"
