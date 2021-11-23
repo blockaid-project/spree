@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 # Used in the sandbox rake task in Rakefile
 
 set -e
@@ -18,6 +18,10 @@ sqlite|'')
   exit 1
   ;;
 esac
+
+DB_NAME="spree_production"
+DB_USER="spree"
+DB_PASS="12345678"
 
 rm -rf ./sandbox
 bundle exec rails new sandbox --database="$RAILSDB" \
@@ -136,8 +140,8 @@ cat <<YML > config/database.yml
 default: &default
   adapter: mysql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: spree
-  password: '12345678'
+  username: $DB_NAME
+  password: '$DB_PASS'
   host: localhost
 
 development:
@@ -173,7 +177,7 @@ test:
 #
 production:
   <<: *default
-  database: spree_production
+  database: $DB_NAME
 YML
 
 bundle install --gemfile Gemfile
@@ -186,6 +190,16 @@ bundle exec rake railties:install:migrations
 bundle exec rails db:migrate
 # bundle exec rails db:seed
 # bundle exec rake spree_sample:load
+
+set_auto_increment_start() (
+  index=0
+  for table in $(sudo mysqlshow spree_production | grep '| spree_' | cut -d' ' -f2 | sort)
+  do
+    index=$((index+1000000))
+    mysql --defaults-extra-file=<(printf "[client]\nuser = %s\npassword = %s" "$DB_USER" "$DB_PASS") -D "$DB_NAME" -e "ALTER TABLE $table AUTO_INCREMENT=$index"
+  done
+)
+set_auto_increment_start
 
 bundle exec rails g spree:install --auto-accept --user_class=Spree::User --sample=true
 if [ "$SPREE_HEADLESS" = "" ]; then
