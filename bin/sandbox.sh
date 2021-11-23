@@ -41,7 +41,7 @@ cd ./sandbox
 if [ "$SPREE_AUTH_DEVISE_PATH" != "" ]; then
   SPREE_AUTH_DEVISE_GEM="gem 'spree_auth_devise', path: '$SPREE_AUTH_DEVISE_PATH'"
 else
-  SPREE_AUTH_DEVISE_GEM="gem 'spree_auth_devise', github: 'spree/spree_auth_devise', branch: 'main'"
+  SPREE_AUTH_DEVISE_GEM="gem 'spree_auth_devise', github: 'spree/spree_auth_devise', tag: 'v4.4.0'"
 fi
 
 if [ "$SPREE_GATEWAY_PATH" != "" ]; then
@@ -117,9 +117,76 @@ if Rails.env.development? && defined?(Bullet)
 end
 RUBY
 
+cat <<RUBY >> config/initializers/devise.rb
+Devise.secret_key = "7da203305259e292e72222bdd7d14b45bdd92407e7a2e62769cfa4c01d59d3454b4f5557bc92af08801ea037d5332e436c5f"
+RUBY
+
+cat <<YML > config/database.yml
+# MySQL. Versions 5.5.8 and up are supported.
+#
+# Install the MySQL driver:
+#   gem install activerecord-jdbcmysql-adapter
+#
+# Configure Using Gemfile
+# gem 'activerecord-jdbcmysql-adapter'
+#
+# And be sure to use new-style password hashing:
+#   https://dev.mysql.com/doc/refman/5.7/en/password-hashing.html
+#
+default: &default
+  adapter: mysql
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  username: spree
+  password: '12345678'
+  host: localhost
+
+development:
+  <<: *default
+  database: spree_development
+
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: spree_test
+
+# As with config/credentials.yml, you never want to store sensitive information,
+# like your database password, in your source code. If your source code is
+# ever seen by anyone, they now have access to your database.
+#
+# Instead, provide the password or a full connection URL as an environment
+# variable when you boot the app. For example:
+#
+#   DATABASE_URL="mysql://myuser:mypass@localhost/somedatabase"
+#
+# If the connection URL is provided in the special DATABASE_URL environment
+# variable, Rails will automatically merge its configuration values on top of
+# the values provided in this file. Alternatively, you can specify a connection
+# URL environment variable explicitly:
+#
+#   production:
+#     url: <%= ENV['MY_APP_DATABASE_URL'] %>
+#
+# Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
+# for a full overview on how database connection configuration can be specified.
+#
+production:
+  <<: *default
+  database: spree_production
+YML
+
 bundle install --gemfile Gemfile
+
+export RAILS_ENV=production
 bundle exec rails db:drop || true
 bundle exec rails db:create
+
+bundle exec rake railties:install:migrations
+bundle exec rails db:migrate
+# bundle exec rails db:seed
+# bundle exec rake spree_sample:load
+
 bundle exec rails g spree:install --auto-accept --user_class=Spree::User --sample=true
 if [ "$SPREE_HEADLESS" = "" ]; then
   bundle exec rails g spree:frontend:install
