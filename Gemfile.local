@@ -1,0 +1,5 @@
+gem 'puma'
+
+git 'git@github.com:zhangwen0411/activerecord-jdbc-adapter.git', branch: '52-stable' do
+  gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
+end

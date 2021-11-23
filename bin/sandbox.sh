@@ -55,7 +55,7 @@ cat <<RUBY >> Gemfile
 gem 'spree', path: '..'
 $SPREE_AUTH_DEVISE_GEM
 $SPREE_GATEWAY_GEM
-gem 'spree_i18n', github: 'spree-contrib/spree_i18n', branch: 'main'
+# gem 'spree_i18n', github: 'spree-contrib/spree_i18n', branch: 'main'
 
 group :test, :development do
   gem 'bullet'
@@ -63,7 +63,7 @@ group :test, :development do
   gem 'awesome_print'
 end
 
-gem 'oj'
+# gem 'oj'
 RUBY
 else
 cat <<RUBY >> Gemfile
@@ -74,16 +74,16 @@ gem 'spree_emails', path: '../emails'
 gem 'spree_sample', path: '../sample'
 $SPREE_AUTH_DEVISE_GEM
 $SPREE_GATEWAY_GEM
-gem 'spree_i18n', github: 'spree-contrib/spree_i18n', branch: 'main'
+# gem 'spree_i18n', github: 'spree-contrib/spree_i18n', branch: 'main'
 
 group :test, :development do
   gem 'bullet'
-  gem 'pry-byebug'
+  # gem 'pry-byebug'
   gem 'awesome_print'
 end
 
 # ExecJS runtime
-gem 'mini_racer'
+# gem 'mini_racer'
 
 # temporary fix for sassc segfaults on ruby 3.0.0 on Mac OS Big Sur
 # this change fixes the issue:
@@ -91,7 +91,7 @@ gem 'mini_racer'
 gem 'sassc', github: 'sass/sassc-ruby', branch: 'master'
 
 gem 'rack-cache'
-gem 'oj'
+# gem 'oj'
 RUBY
 fi
 
@@ -99,13 +99,13 @@ cat <<RUBY >> config/environments/development.rb
 Rails.application.config.hosts << /.*\.lvh\.me/
 RUBY
 
-touch config/initializers/oj.rb
-
-cat <<RUBY >> config/initializers/oj.rb
-require 'oj'
-
-Oj.optimize_rails
-RUBY
+# touch config/initializers/oj.rb
+# 
+# cat <<RUBY >> config/initializers/oj.rb
+# require 'oj'
+# 
+# Oj.optimize_rails
+# RUBY
 
 touch config/initializers/bullet.rb
 

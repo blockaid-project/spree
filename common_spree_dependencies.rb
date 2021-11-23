@@ -49,7 +49,7 @@ group :test, :development do
   gem 'redis'
   gem 'rubocop', '~> 1.0.0', require: false # bumped
   gem 'rubocop-rspec', require: false
-  gem 'pry-byebug'
+  # gem 'pry-byebug'
   gem 'webdrivers', '~> 4.1'
   gem 'puma'
   gem 'ffaker'
