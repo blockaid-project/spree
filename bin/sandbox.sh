@@ -140,7 +140,7 @@ cat <<YML > config/database.yml
 default: &default
   adapter: mysql
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  username: $DB_NAME
+  username: $DB_USER
   password: '$DB_PASS'
   host: localhost
 
