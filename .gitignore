@@ -56,3 +56,4 @@ vendor/bundle
 .ignore
 TODO
 sandbox/public/assets
+sandbox/shared

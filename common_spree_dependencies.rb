@@ -6,6 +6,10 @@ source 'https://rubygems.org'
 gem 'sqlite3', '~> 1.4.0', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
+git 'git@github.com:zhangwen0411/lazy_columns.git' do
+  gem 'lazy_columns'
+end
+
 %w[
   actionmailer actionpack actionview activejob activemodel activerecord
   activestorage activesupport railties
