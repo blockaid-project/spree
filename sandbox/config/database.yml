@@ -50,3 +50,14 @@ test:
 production:
   <<: *default
   database: spree_production
+
+production_mod:
+  <<: *default
+  database: spree_production
+
+production_mod_checked:
+  <<: *default
+  database: spree_production
+  driver: edu.berkeley.cs.netsys.privacy_proxy.jdbc.PrivacyDriver
+  url: jdbc:privacy:thin:/home/ubuntu/privacy_proxy/src/test/resources/SpreeTest,jdbc:mysql://localhost:3306/spree_production?useSSL=false&useUnicode=true&character_set_server=utf8mb4&collation_server=utf8mb4_bin,spree_production
+

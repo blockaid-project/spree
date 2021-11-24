@@ -76,7 +76,7 @@ use rake db:load_file[/absolute/path/to/sample/filename.rb]}
     load_defaults ||= agree('Countries present, load sample data anyways? [y/n]: ')
     Rake::Task['db:seed'].invoke if load_defaults
 
-    if Rails.env.production? && Spree::Product.count > 0
+    if Rails.env.start_with? "production" && Spree::Product.count > 0
       load_sample = agree('WARNING: In Production and products exist in database, load sample data anyways? [y/n]:')
     else
       load_sample = true if ENV['AUTO_ACCEPT']
