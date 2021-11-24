@@ -121,10 +121,6 @@ if Rails.env.development? && defined?(Bullet)
 end
 RUBY
 
-cat <<RUBY >> config/initializers/devise.rb
-Devise.secret_key = "7da203305259e292e72222bdd7d14b45bdd92407e7a2e62769cfa4c01d59d3454b4f5557bc92af08801ea037d5332e436c5f"
-RUBY
-
 cat <<YML > config/database.yml
 # MySQL. Versions 5.5.8 and up are supported.
 #
