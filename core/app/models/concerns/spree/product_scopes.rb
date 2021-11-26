@@ -242,7 +242,7 @@ module Spree
       def self.available(available_on = nil, currency = nil)
         available_on ||= Time.current
 
-        scope = not_discontinued.where("#{Product.quoted_table_name}.available_on <= ?", available_on)
+        scope = not_discontinued.where("#{Product.quoted_table_name}.available_on < ?", available_on)
 
         unless Spree::Config.show_products_without_price
           currency ||= Spree::Config[:currency]
@@ -269,7 +269,7 @@ module Spree
         if user.try(:has_spree_role?, 'admin')
           with_deleted
         else
-          not_deleted.not_discontinued.where("#{Product.quoted_table_name}.available_on <= ?", Time.current)
+          not_deleted.not_discontinued.where("#{Product.quoted_table_name}.available_on < ?", Time.current)
         end
       end
 
