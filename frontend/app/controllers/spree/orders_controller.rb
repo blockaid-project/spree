@@ -54,6 +54,19 @@ module Spree
     end
 
     def check_authorization
+      if action_name.to_sym == :show
+        if params[:id].present?
+          order = current_store.orders.where(number: params[:id])
+          raise ActionController::RoutingError.new('Not Found') unless order.exists?
+
+          # If we're here, the order number exists in the store.  Check authorization.
+          order = order.where(user: try_spree_current_user).or(order.where(token: cookies.signed[:token])).take!
+        else
+          order = current_order
+        end
+        return unless !order
+      end
+
       order = current_store.orders.find_by(number: params[:id]) if params[:id].present?
       order ||= current_order
 

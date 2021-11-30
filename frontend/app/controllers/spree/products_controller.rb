@@ -29,7 +29,7 @@ module Spree
         @product_properties = @product.product_properties.includes(:property)
         @product_price = @product.price_in(current_currency).amount
         load_variants
-        @product_images = product_images(@product, @variants)
+        @product_images = product_images(@product, @base_variants)
       end
     end
 
@@ -64,14 +64,17 @@ module Spree
     end
 
     def load_variants
-      @variants = @product.
+      @base_variants = @product.
                   variants_including_master.
                   spree_base_scopes.
                   active(current_currency).
                   includes(
+                    images: { attachment_attachment: :blob }
+                  )
+      @variants = @base_variants.
+                  includes(
                     :default_price,
                     option_values: [:option_value_variants],
-                    images: { attachment_attachment: :blob }
                   )
     end
 
