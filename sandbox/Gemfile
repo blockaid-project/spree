@@ -44,7 +44,9 @@ gem 'spree_frontend', path: '../frontend'
 gem 'spree_backend', path: '../backend'
 gem 'spree_emails', path: '../emails'
 gem 'spree_sample', path: '../sample'
-gem 'spree_auth_devise', github: 'spree/spree_auth_devise', tag: 'v4.4.0'
+git 'git@github.com:zhangwen0411/spree_auth_devise.git', branch: 'bv4.4.0' do
+  gem 'spree_auth_devise'
+end
 gem 'spree_gateway', github: 'spree/spree_gateway', branch: 'main'
 # gem 'spree_i18n', github: 'spree-contrib/spree_i18n', branch: 'main'
 
@@ -64,3 +66,5 @@ gem 'sassc', github: 'sass/sassc-ruby', branch: 'master'
 
 gem 'rack-cache'
 # gem 'oj'
+
+gem 'active_record_query_trace'
