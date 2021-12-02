@@ -240,7 +240,7 @@ module Spree
 
     # determine if any variant (including master) can be supplied
     def can_supply?
-      variants_including_master.any?(&:can_supply?)
+      variants_including_master.not_discontinued.any?(&:can_supply?)
     end
 
     # determine if any variant (including master) is out of stock and backorderable

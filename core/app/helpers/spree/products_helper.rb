@@ -116,7 +116,7 @@ module Spree
 
     def product_variants_matrix(is_product_available_in_currency)
       Spree::VariantPresenter.new(
-        variants: @variants,
+        variants: @base_variants,
         is_product_available_in_currency: is_product_available_in_currency,
         current_currency: current_currency,
         current_price_options: current_price_options,

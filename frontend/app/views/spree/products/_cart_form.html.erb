@@ -15,7 +15,7 @@
 </template>
 
 <% is_product_available_in_currency = product_available_in_currency? %>
-<% default_variant = default_variant(@variants, @product) %>
+<% default_variant = default_variant(@base_variants, @product) %>
 
 <%= form_for :order, html: {
     id: 'add-to-cart-form',

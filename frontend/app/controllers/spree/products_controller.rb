@@ -69,11 +69,11 @@ module Spree
                   spree_base_scopes.
                   active(current_currency).
                   includes(
-                    images: { attachment_attachment: :blob }
+                    :default_price,
+                    images: { attachment_attachment: :blob },
                   )
       @variants = @base_variants.
                   includes(
-                    :default_price,
                     option_values: [:option_value_variants],
                   )
     end
