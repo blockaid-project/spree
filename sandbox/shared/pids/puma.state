@@ -1,5 +1,0 @@
----
-pid: 6474
-control_url: unix:///tmp/puma-status-1637692728224-6474
-control_auth_token: ee5e3d76ac9e4b54ea5964843e3fe10b
-running_from: "/home/ubuntu/spree/sandbox"
