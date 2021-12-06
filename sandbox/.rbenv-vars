@@ -1,0 +1,1 @@
+JRUBY_OPTS='--server -Xcompile.invokedynamic=true'
