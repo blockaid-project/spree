@@ -221,7 +221,7 @@ module Spree
       end
 
       add_search_scope :not_deleted do
-        where("#{Product.quoted_table_name}.deleted_at IS NULL or #{Product.quoted_table_name}.deleted_at > ?", Time.zone.now)
+        where("#{Product.quoted_table_name}.deleted_at IS NULL or #{Product.quoted_table_name}.deleted_at >= ?", Time.zone.now)
       end
 
       def self.not_discontinued(only_not_discontinued = true)
