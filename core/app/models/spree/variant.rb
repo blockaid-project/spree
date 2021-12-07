@@ -81,7 +81,7 @@ module Spree
     scope :not_discontinued, -> do
       where(
         arel_table[:discontinue_on].eq(nil).or(
-          arel_table[:discontinue_on].gteq(Time.current)
+          arel_table[:discontinue_on].gteq(predicate_builder.build_bind_attribute(:discontinue_on, Time.current))
         )
       )
     end

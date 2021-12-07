@@ -49,8 +49,15 @@ module Spree
     end
 
     def self.active
-      where('spree_promotions.starts_at IS NULL OR spree_promotions.starts_at < ?', Time.current).
-        where('spree_promotions.expires_at IS NULL OR spree_promotions.expires_at > ?', Time.current)
+      where(
+        arel_table[:starts_at].eq(nil).or(
+          arel_table[:starts_at].lt(predicate_builder.build_bind_attribute(:starts_at, Time.current))
+        )
+      ).where(
+        arel_table[:expires_at].eq(nil).or(
+          arel_table[:expires_at].gt(predicate_builder.build_bind_attribute(:expires_at, Time.current))
+        )
+      )
     end
 
     def self.order_activatable?(order)
