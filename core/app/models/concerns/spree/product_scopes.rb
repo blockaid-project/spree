@@ -221,12 +221,16 @@ module Spree
       end
 
       add_search_scope :not_deleted do
-        where("#{Product.quoted_table_name}.deleted_at IS NULL or #{Product.quoted_table_name}.deleted_at >= ?", Time.zone.now)
+        where(deleted_at: nil).or(where(
+           arel_table[:deleted_at].gteq(predicate_builder.build_bind_attribute(:deleted_at, Time.zone.now))
+        ))
       end
 
       def self.not_discontinued(only_not_discontinued = true)
         if only_not_discontinued != '0' && only_not_discontinued
-          where("#{Product.quoted_table_name}.discontinue_on IS NULL or #{Product.quoted_table_name}.discontinue_on >= ?", Time.zone.now)
+          where(discontinue_on: nil).or(where(
+             arel_table[:discontinue_on].gteq(predicate_builder.build_bind_attribute(:discontinue_on, Time.zone.now))
+          ))
         else
           all
         end
@@ -245,7 +249,7 @@ module Spree
       def self.available(available_on = nil, currency = nil)
         available_on ||= Time.current
 
-        scope = not_discontinued.where("#{Product.quoted_table_name}.available_on <= ?", available_on)
+        scope = not_discontinued.where(arel_table[:available_on].lteq(predicate_builder.build_bind_attribute(:available_on, available_on)))
 
         unless Spree::Config.show_products_without_price
           currency ||= Spree::Config[:currency]
@@ -272,7 +276,7 @@ module Spree
         if user.try(:has_spree_role?, 'admin')
           with_deleted
         else
-          not_deleted.not_discontinued.where("#{Product.quoted_table_name}.available_on <= ?", Time.current)
+          not_deleted.not_discontinued.where(arel_table[:available_on].lteq(predicate_builder.build_bind_attribute(:available_on, Time.current)))
         end
       end
 
