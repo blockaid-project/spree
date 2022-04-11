@@ -1,5 +1,5 @@
 gem 'puma'
 
-git 'git@github.com:zhangwen0411/activerecord-jdbc-adapter.git', branch: '52-stable' do
+git 'https://github.com/blockaid-project/activerecord-jdbc-adapter.git', branch: '52-stable-blockaid' do
   gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 end

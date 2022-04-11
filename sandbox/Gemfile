@@ -6,7 +6,7 @@ ruby '2.6.8', :engine => 'jruby', :engine_version => '9.3.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
-git 'git@github.com:zhangwen0411/activerecord-jdbc-adapter.git', branch: '61-stable' do
+git 'https://github.com/blockaid-project/activerecord-jdbc-adapter.git', branch: '61-stable-blockaid' do
   gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 end
 
