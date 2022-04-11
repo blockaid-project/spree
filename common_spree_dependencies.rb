@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'sqlite3', '~> 1.4.0', platforms: [:ruby, :mingw, :mswin, :x64_mingw]
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 
-git 'git@github.com:zhangwen0411/lazy_columns.git' do
+git 'https://github.com/blockaid-project/lazy_columns.git', branch: 'blockaid' do
   gem 'lazy_columns'
 end
 

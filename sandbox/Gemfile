@@ -3,14 +3,14 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.6.8', :engine => 'jruby', :engine_version => '9.3.0.0'
 
-git 'git@github.com:zhangwen0411/lazy_columns.git' do
+git 'https://github.com/blockaid-project/lazy_columns.git', branch: 'blockaid' do
   gem 'lazy_columns'
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails', branch: 'main'
 gem 'rails', '~> 6.1.4', '>= 6.1.4.1'
 
-git 'git@github.com:zhangwen0411/activerecord-jdbc-adapter.git', branch: '61-stable' do
+git 'https://github.com/blockaid-project/activerecord-jdbc-adapter.git', branch: '61-stable-blockaid' do
   gem 'activerecord-jdbcmysql-adapter', :platform => :jruby
 end
 
@@ -44,7 +44,7 @@ gem 'spree_frontend', path: '../frontend'
 gem 'spree_backend', path: '../backend'
 gem 'spree_emails', path: '../emails'
 gem 'spree_sample', path: '../sample'
-git 'git@github.com:zhangwen0411/spree_auth_devise.git', branch: 'bv4.4.0' do
+git 'https://github.com/blockaid-project/spree_auth_devise.git', branch: 'bv4.4.0' do
   gem 'spree_auth_devise'
 end
 gem 'spree_gateway', github: 'spree/spree_gateway', branch: 'main'
